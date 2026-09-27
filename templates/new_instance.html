@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}New Instance - MDev Panel{% endblock %}
+
+{% block content %}
+<div class="inst-head">
+  <h1 class="h1">New Instance</h1>
+  <a class="btn" href="{{ url_for('instances_page') }}">← Instances</a>
+</div>
+
+<form id="form" class="card" autocomplete="off">
+  <label class="field">
+    <span class="field-label">Instance Name</span>
+    <input id="name" type="text" placeholder="My Survival Server" maxlength="64" required
+           autocapitalize="off" autocorrect="off" spellcheck="false">
+    <span class="field-hint">Letters, numbers, spaces, - . or _ only. This becomes the folder name.</span>
+  </label>
+
+  <label class="field">
+    <span class="field-label">Paper Version</span>
+    <select id="version" required disabled>
+      <option value="">Loading versions...</option>
+    </select>
+  </label>
+
+  <label class="field">
+    <span class="field-label">Paper Build</span>
+    <select id="build" disabled>
+      <option value="">Recommended (latest)</option>
+    </select>
+  </label>
+
+  <div id="form-error" class="alert alert-error" hidden></div>
+
+  <button class="btn btn-primary btn-block" id="create" type="submit">Create Instance</button>
+</form>
+
+<div id="progress-card" class="card" hidden>
+  <h2 class="h2" id="progress-title">Creating instance...</h2>
+  <div class="progress"><div id="progress-bar" class="progress-bar" style="width:0%"></div></div>
+  <p id="progress-message" class="muted">Starting...</p>
+  <a id="progress-open" class="btn btn-primary btn-block" hidden>Open Instance</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/new_instance.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

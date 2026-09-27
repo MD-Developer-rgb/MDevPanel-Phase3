@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Playit - MDev Panel{% endblock %}
+
+{% block content %}
+<div id="playit-root" data-mc-instances="{{ mc_instances|join(',') }}">
+  <div class="inst-head">
+    <h1 class="h1">Playit</h1>
+    <a class="btn" href="{{ url_for('playit_logs_page') }}">📄 Logs</a>
+  </div>
+
+  <div id="msg" class="alert alert-error" hidden></div>
+
+  <!-- Not installed -->
+  <section id="card-not-installed" class="card" hidden>
+    <h2 class="h2">Not Installed</h2>
+    <p class="muted">Playit is not installed for this panel. Detected:</p>
+    <dl class="rows rows-plain">
+      <dt>Platform</dt><dd id="ni-platform">-</dd>
+      <dt>Architecture</dt><dd id="ni-arch">-</dd>
+      <dt>Playit version</dt><dd id="ni-version">-</dd>
+    </dl>
+    <p class="note" id="ni-unsupported" hidden></p>
+    <button class="btn btn-primary btn-block" id="btn-install" type="button">Install Playit</button>
+    <div id="install-progress" hidden>
+      <div class="progress"><div id="install-bar" class="progress-bar" style="width:0%"></div></div>
+      <p id="install-message" class="muted">Starting...</p>
+    </div>
+  </section>
+
+  <!-- Installed, not configured -->
+  <section id="card-setup-needed" class="card" hidden>
+    <h2 class="h2">Playit Setup</h2>
+    <p>Playit is installed. Your Playit agent needs to be connected to your Playit account.</p>
+    <button class="btn btn-primary btn-block" id="btn-setup" type="button">Setup Playit</button>
+  </section>
+
+  <!-- Setup in progress: claim link -->
+  <section id="card-setup-active" class="card" hidden>
+    <h2 class="h2">Connect Playit</h2>
+    <p><strong>Setup required.</strong> Open this link to connect your Playit agent:</p>
+    <div id="setup-url-box" class="addr-box">
+      <div class="addr-main" id="setup-url" style="font-size:15px">-</div>
+      <div class="actions">
+        <a class="btn btn-primary wide" id="btn-open-setup" href="#" target="_blank" rel="noopener">Open Playit Setup</a>
+        <button class="btn btn-block wide" id="btn-copy-setup" type="button">Copy Link</button>
+      </div>
+    </div>
+    <p class="muted" id="waiting-note" style="margin-top:12px">Waiting for setup...</p>
+  </section>
+
+  <!-- Running / configured -->
+  <section id="card-status" class="card hero" data-state="loading" hidden>
+    <div id="status-label" class="status-label">-</div>
+    <dl class="rows rows-plain" style="margin-top:14px">
+      <dt>Phase</dt><dd id="st-phase">-</dd>
+      <dt>Secret configured</dt><dd id="st-secret">-</dd>
+      <dt>Version</dt><dd id="st-version">-</dd>
+      <dt>Platform</dt><dd id="st-platform">-</dd>
+      <dt>Architecture</dt><dd id="st-arch">-</dd>
+      <dt>Public Address</dt><dd id="st-public">Unavailable</dd>
+    </dl>
+    <button class="btn btn-block" id="btn-copy-public" type="button" hidden>Copy Address</button>
+    <div class="actions" style="margin-top:14px">
+      <button class="btn btn-danger" id="btn-stop" type="button" hidden>Stop</button>
+      <button class="btn" id="btn-restart" type="button" hidden>Restart</button>
+      <button class="btn btn-primary wide" id="btn-start" type="button" hidden>Start</button>
+    </div>
+  </section>
+
+  <section id="card-tunnel" class="card" hidden>
+    <h2 class="h2">Tunnel</h2>
+    <dl class="rows rows-plain">
+      <dt>Local Minecraft Server</dt>
+      <dd>
+        <select id="mc-target" style="max-width:220px;display:inline-block"></select>
+      </dd>
+      <dt>Public Address</dt><dd id="tn-public">Unavailable</dd>
+    </dl>
+    <p class="note">If the public address shows Unavailable, tunnel information is not
+      currently available from the running agent - the panel never guesses it.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="h2">Playit Documentation</h2>
+    <p class="note" style="margin-top:0">
+      MDevPanel downloads and runs Playit's own official standalone release binaries -
+      never a system-installed copy.
+    </p>
+    <p><a href="https://playit.gg/support/" target="_blank" rel="noopener">Playit Documentation →</a></p>
+    <p><a href="https://github.com/playit-cloud/playit-agent/releases" target="_blank" rel="noopener">Playit Releases →</a></p>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/playit.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

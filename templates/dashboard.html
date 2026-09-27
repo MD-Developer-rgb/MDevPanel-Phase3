@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ instance }} - Dashboard - MDev Panel{% endblock %}
+
+{% block content %}
+<div class="dash" data-instance="{{ instance }}">
+  <section id="problems" class="problems" hidden></section>
+
+  <section class="card hero" id="hero" data-state="loading">
+    <div id="status-label" class="status-label">Loading...</div>
+    <div id="status-sub" class="status-sub">Checking the server</div>
+
+    <dl class="kv kv-center">
+      <dt>Players</dt><dd id="hero-players">-</dd>
+      <dt>Port</dt><dd id="hero-port">-</dd>
+      <dt>Uptime</dt><dd class="js-uptime">Offline</dd>
+    </dl>
+
+    <div class="actions" id="actions">
+      <button class="btn btn-primary wide" id="btn-start" type="button" hidden>START SERVER</button>
+      <button class="btn" id="btn-restart" type="button" hidden>RESTART</button>
+      <button class="btn btn-danger" id="btn-stop" type="button" hidden>STOP</button>
+      <button class="btn btn-danger wide" id="btn-force" type="button" hidden>FORCE STOP</button>
+      <a class="btn btn-link wide" id="btn-console" href="{{ url_for('console_page', name=instance) }}">🖥 CONSOLE</a>
+    </div>
+  </section>
+
+  <section class="card" id="server-card">
+    <h2 class="h2">Server</h2>
+    <dl class="rows rows-plain">
+      <dt>Status</dt><dd id="srv-status">-</dd>
+      <dt>Players</dt><dd id="srv-players">-</dd>
+      <dt>Minecraft</dt><dd id="srv-version">Unknown</dd>
+      <dt>Software</dt><dd id="srv-software">Unknown</dd>
+      <dt>JAR</dt><dd id="srv-jar">-</dd>
+      <dt>Java</dt><dd id="srv-java">-</dd>
+      <dt>Port</dt><dd id="srv-port">-</dd>
+      <dt>RAM</dt><dd id="srv-ram">-</dd>
+      <dt>Uptime</dt><dd class="js-uptime">Offline</dd>
+    </dl>
+    <p class="note" id="srv-port-note"></p>
+    <p class="note"><a href="{{ url_for('settings_page', name=instance) }}">Change server.properties or RAM in Settings →</a></p>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

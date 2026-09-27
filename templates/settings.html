@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ instance }} - Settings - MDev Panel{% endblock %}
+
+{% block content %}
+<div data-instance="{{ instance }}">
+  <h1 class="h1">Settings</h1>
+
+  <section class="card">
+    <h2 class="h2">RAM</h2>
+    <p class="note" style="margin-top:0">Takes effect the next time this instance starts.</p>
+    <form id="ram-form" class="ram-row">
+      <label class="field">
+        <span class="field-label">Minimum</span>
+        <input id="ram-min" type="text" placeholder="1G" maxlength="8">
+      </label>
+      <label class="field">
+        <span class="field-label">Maximum</span>
+        <input id="ram-max" type="text" placeholder="2G" maxlength="8">
+      </label>
+      <button class="btn btn-primary" type="submit">Save</button>
+    </form>
+    <p class="note">Examples: 512M, 1G, 4G.</p>
+  </section>
+
+  <section class="card">
+    <h2 class="h2">Server Properties</h2>
+    <p class="note" style="margin-top:0" id="props-note">Loading...</p>
+    <form id="props-form">
+      <div id="props-fields" class="props-grid"></div>
+
+      <h3 class="h3 h3-panel">Advanced</h3>
+      <p class="note" style="margin-top:0">Anything not shown above. Comments and unknown settings are kept as-is.</p>
+      <textarea id="props-advanced" class="raw-editor" rows="8" spellcheck="false"></textarea>
+
+      <div id="props-error" class="alert alert-error" hidden></div>
+      <button class="btn btn-primary btn-block" type="submit">Save server.properties</button>
+    </form>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

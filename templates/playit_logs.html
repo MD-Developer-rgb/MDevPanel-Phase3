@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Playit Logs - MDev Panel{% endblock %}
+
+{% block content %}
+<section class="console-wrap">
+  <div class="console-head">
+    <h1 class="console-title">Playit Logs</h1>
+    <a class="btn btn-sm" href="{{ url_for('playit_page') }}">← Playit</a>
+    <span id="conn" class="conn" data-on="0">connecting</span>
+  </div>
+
+  <div class="tools">
+    <button class="btn btn-sm" id="t-pause" type="button">⏸ Pause</button>
+    <button class="btn btn-sm" id="t-clear" type="button">🧹 Clear</button>
+    <button class="btn btn-sm" id="t-copy" type="button">📋 Copy</button>
+    <a class="btn btn-sm" id="t-download" href="{{ url_for('api_playit_log_download') }}" download>⬇ Download</a>
+  </div>
+
+  <div class="search">
+    <input id="search" type="search" placeholder="Search logs" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Search logs">
+    <span id="search-count" class="search-count" hidden></span>
+  </div>
+
+  <div id="log" class="log" role="log" aria-label="Playit log output" tabindex="0"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/playit_logs.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

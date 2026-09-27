@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Instances - MDev Panel{% endblock %}
+
+{% block content %}
+<div class="inst-head">
+  <h1 class="h1">Instances</h1>
+  <a class="btn btn-primary" href="{{ url_for('new_instance_page') }}">+ New Instance</a>
+</div>
+
+<div id="empty" class="card" hidden>
+  <p class="muted" style="margin:0">
+    No instances yet. Put a server JAR in a folder under the instances directory,
+    or create one with <strong>+ New Instance</strong> above.
+  </p>
+</div>
+
+<div id="cards" class="cards"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/instances.js') }}?v={{ asset_v }}"></script>
+{% endblock %}

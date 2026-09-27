@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ instance }} - Console - MDev Panel{% endblock %}
+
+{% block content %}
+<section class="console-wrap" data-instance="{{ instance }}">
+  <div class="console-head">
+    <h1 class="console-title">Console</h1>
+    <span id="state-pill" class="pill" data-state="loading">...</span>
+    <span id="conn" class="conn" data-on="0">connecting</span>
+  </div>
+
+  <div id="state-note" class="alert alert-error" hidden></div>
+
+  <div class="tools">
+    <button class="btn btn-sm" id="t-pause" type="button">⏸ Pause</button>
+    <button class="btn btn-sm" id="t-clear" type="button">🧹 Clear</button>
+    <button class="btn btn-sm" id="t-copy" type="button">📋 Copy</button>
+    <a class="btn btn-sm" id="t-download" href="#" download>⬇ Download</a>
+  </div>
+
+  <div class="search">
+    <input id="search" type="search" placeholder="Search console" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Search console">
+    <span id="search-count" class="search-count" hidden></span>
+  </div>
+
+  <div id="log" class="log" role="log" aria-label="Minecraft console output" tabindex="0"></div>
+
+  <form id="cmd-form" class="cmdbar" autocomplete="off">
+    <button class="btn btn-icon" id="hist-up" type="button" aria-label="Previous command">↑</button>
+    <button class="btn btn-icon" id="hist-down" type="button" aria-label="Next command">↓</button>
+    <input id="cmd" type="text" placeholder="Command (no / needed)" enterkeyhint="send"
+           autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Minecraft command">
+    <button class="btn btn-primary btn-icon" id="cmd-send" type="submit" aria-label="Send command">➤</button>
+  </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/console.js') }}?v={{ asset_v }}"></script>
+{% endblock %}
